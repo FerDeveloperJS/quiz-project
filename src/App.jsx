@@ -1,7 +1,7 @@
-import Category from "./pages/Category";
+import LoadingGameScreen from "./components/LoadingGameScreen";
 
 function App() {
-  return <Category />
+  return <LoadingGameScreen />;
 }
 
 export default App;
