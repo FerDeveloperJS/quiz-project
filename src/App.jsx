@@ -1,7 +1,7 @@
-import LoadingGameScreen from "./components/LoadingGameScreen";
+import Game from "./pages/Game";
 
 function App() {
-  return <LoadingGameScreen />;
+  return <Game />;
 }
 
 export default App;
