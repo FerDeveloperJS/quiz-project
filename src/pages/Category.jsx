@@ -1,5 +1,6 @@
 import CategoryButton from "../components/CategoryButton";
 import mind from "../assets/img/mind.png";
+import { Link } from "react-router-dom";
 
 function Category() {
   return (

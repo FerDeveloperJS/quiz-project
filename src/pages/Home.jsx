@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import mind from "../assets/img/mind.png";
 
 function Home() {
@@ -10,9 +11,12 @@ function Home() {
       <p className="mt-64 md:mt-72 text-white text-center text-xl md:text-3xl lg:text-5xl font-medium">
         Pon a prueba tu conocimiento!
       </p>
-      <button className="bg-[#10002B] text-white text-xl md:text-3xl lg:text-5xl mx-auto mt-5 p-2 lg:p-4 rounded-2xl">
+      <Link
+        to="/category"
+        className="block bg-[#10002B] text-white text-xl md:text-3xl lg:text-5xl mx-auto w-fit mt-5 p-2 lg:p-4 rounded-2xl"
+      >
         Jugar!
-      </button>
+      </Link>
     </section>
   );
 }
