@@ -8,7 +8,21 @@ function SignUp() {
   const [notificationMessage, setNotificationMessage] = useState("");
   const [notificationBackground, setNotificationBackground] = useState("");
 
-  async function handleSignUp(email, password) {
+  async function insertUser(name, email) {
+    try {
+      const { data, error } = await supabase
+        .from("users")
+        .insert([{ name: name, email: email, role: "jugador" }]);
+
+      if (error) {
+        alert(error.message);
+      }
+    } catch (error) {
+      alert("Error inesperado:", error);
+    }
+  }
+
+  async function handleSignUp(name, email, password) {
     try {
       const { data, error } = await supabase.auth.signUp({
         email,
@@ -27,6 +41,7 @@ function SignUp() {
         "Te has registrado exitosamente, revisa tu correo para confirmar"
       );
       setNotificationBackground("bg-green-400");
+      await insertUser(name, email);
     } catch (error) {
       alert("Error inesperado:", error);
     }
@@ -94,10 +109,11 @@ function SignUp() {
           onClick={async (e) => {
             e.preventDefault();
 
+            const nameValue = document.querySelector("#name").value;
             const emailValue = document.querySelector("#email").value;
             const passwordValue = document.querySelector("#password").value;
 
-            await handleSignUp(emailValue, passwordValue);
+            await handleSignUp(nameValue, emailValue, passwordValue);
           }}
         >
           Registrarse
