@@ -2,11 +2,20 @@ import { supabase } from "../supabaseClient.js";
 import mind from "../assets/img/mind.png";
 import LoginNotification from "../components/LoginNotification";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function SignIn() {
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
   const [notificationBackground, setNotificationBackground] = useState("");
+
+  const navigate = useNavigate();
+
+  function navigateToHome() {
+    setTimeout(() => {
+      navigate("/home");
+    }, 4000);
+  }
 
   async function handleSignIn(email, password) {
     try {
@@ -25,6 +34,8 @@ function SignIn() {
       setShowNotification(true);
       setNotificationMessage("Has iniciado sesión exitosamente");
       setNotificationBackground("bg-green-400");
+
+      navigateToHome();
     } catch (error) {
       alert("Error inesperado:", error.message);
     }
