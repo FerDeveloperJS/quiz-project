@@ -13,7 +13,13 @@ import { useLocation } from "react-router-dom";
 function Game() {
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [currentOptions, setCurrentOptions] = useState([]);
-  const [currentTimer, setCurrentTimer] = useState(10);
+  const [currentCorrectAnswer, setCurrentCorrectAnswer] = useState(null);
+  const [currentOptionSelectedByUser, setCurrentOptionSelectedByUser] =
+    useState(null);
+  const [currentTimer, setCurrentTimer] = useState(3);
+  const [currentQuestionNumber, setCurrentQuestionNumber] = useState(0);
+  const [gameOver, setGameOver] = useState(false);
+  const [score, setScore] = useState(0);
 
   const location = useLocation();
   const category = location.state?.category;
@@ -33,7 +39,9 @@ function Game() {
 
     setCurrentQuestion(randomQuestion.question);
     setCurrentOptions(randomQuestion.options);
-    setCurrentTimer(10);
+    setCurrentCorrectAnswer(randomQuestion.correct);
+    setCurrentTimer(3);
+    setCurrentQuestionNumber((prev) => prev + 1);
   }
 
   useEffect(() => {
@@ -42,9 +50,32 @@ function Game() {
 
   useEffect(() => {
     if (currentTimer === 0) {
+      if (currentCorrectAnswer === currentOptionSelectedByUser) {
+        setScore((prev) => prev + 1);
+      }
+
+      if (currentQuestionNumber >= 10) {
+        setGameOver(true);
+        return;
+      }
+
+      setCurrentOptionSelectedByUser(null);
       nextQuestion();
     }
   }, [currentTimer]);
+
+  if (gameOver) {
+    return (
+      <section className="bg-[#7B2CBF] min-h-screen p-5 flex flex-col gap-2.5 items-center justify-center">
+        <h1 className="text-white text-2xl lg:text-4xl font-bold">
+          ¡Juego terminado!
+        </h1>
+        <p className="text-white text-2xl lg:text-4xl font-bold">
+          Tu puntuación es de: {score}
+        </p>
+      </section>
+    );
+  }
 
   return (
     <section className="bg-[#7B2CBF] min-h-screen min-w-screen p-5">
@@ -54,7 +85,14 @@ function Game() {
       )}
       <div className="flex flex-col gap-10 mt-10 items-center">
         {currentOptions &&
-          currentOptions.map((option) => <AnswerBox text={option} />)}
+          currentOptions.map((option) => (
+            <AnswerBox
+              key={currentQuestion + option}
+              text={option}
+              isSelected={currentOptionSelectedByUser === option}
+              setCurrentOptionSelectedByUser={setCurrentOptionSelectedByUser}
+            />
+          ))}
       </div>
     </section>
   );
