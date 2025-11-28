@@ -2,7 +2,7 @@ import { supabase } from "../supabaseClient.js";
 import mind from "../assets/img/mind.png";
 import LoginNotification from "../components/LoginNotification";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function SignIn() {
   const [showNotification, setShowNotification] = useState(false);
@@ -98,6 +98,12 @@ function SignIn() {
           Iniciar Sesión
         </button>
       </form>
+      <div className="mt-5 mx-auto w-fit flex gap-2 text-xl font-[Onest] font-bold">
+        <p className="text-center text-white">¿No tienes cuenta?</p>
+        <Link to="/signup" className="text-pink-500">
+          Regístrate aquí
+        </Link>
+      </div>
     </section>
   );
 }

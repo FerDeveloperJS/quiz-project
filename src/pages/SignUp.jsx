@@ -2,6 +2,7 @@ import { supabase } from "../supabaseClient.js";
 import mind from "../assets/img/mind.png";
 import RegistrationNotification from "../components/RegistrationNotification.jsx";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function SignUp() {
   const [showNotification, setShowNotification] = useState(false);
@@ -123,6 +124,12 @@ function SignUp() {
           Registrarse
         </button>
       </form>
+      <div className="mt-5 mx-auto w-fit flex gap-2 text-xl font-[Onest] font-bold">
+        <p className="text-center text-white">¿Ya tienes cuenta?</p>
+        <Link to="/" className="text-pink-500">
+          Inicia sesión aquí
+        </Link>
+      </div>
     </section>
   );
 }
