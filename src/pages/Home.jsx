@@ -1,8 +1,24 @@
 import { Link } from "react-router-dom";
 import mind from "../assets/img/mind.png";
 import UserMenu from "../components/UserMenu.jsx";
+import WelcomeScreen from "../components/WelcomeScreen.jsx";
+import { useState, useEffect } from "react";
 
 function Home() {
+  const [showWelcome, setShowWelcome] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowWelcome(false);
+    }, 4000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (showWelcome) {
+    return <WelcomeScreen />;
+  }
+
   return (
     <section className="bg-[#7B2CBF] min-h-screen">
       <UserMenu />

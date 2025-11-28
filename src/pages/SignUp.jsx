@@ -8,11 +8,13 @@ function SignUp() {
   const [notificationMessage, setNotificationMessage] = useState("");
   const [notificationBackground, setNotificationBackground] = useState("");
 
-  async function insertUser(name, email) {
+  async function insertUser(name, email, authId) {
     try {
       const { data, error } = await supabase
         .from("users")
-        .insert([{ name: name, email: email, role: "jugador" }]);
+        .insert([
+          { name: name, email: email, role: "jugador", auth_id: authId },
+        ]);
 
       if (error) {
         alert(error.message);
@@ -36,12 +38,14 @@ function SignUp() {
         return;
       }
 
+      const authId = data.user.id;
+
       setShowNotification(true);
       setNotificationMessage(
         "Te has registrado exitosamente, revisa tu correo para confirmar"
       );
       setNotificationBackground("bg-green-400");
-      await insertUser(name, email);
+      await insertUser(name, email, authId);
     } catch (error) {
       alert("Error inesperado:", error);
     }
