@@ -1,8 +1,12 @@
 import { useState } from "react";
 import CloseSvg from "../assets/svg/CloseSvg.jsx";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "../supabaseClient.js";
 
 function UserMenu() {
   const [open, setOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   if (open) {
     return (
@@ -21,11 +25,24 @@ function UserMenu() {
             <div className="text-[16px]">En línea</div>
           </div>
 
-          <button>Clasificación</button>
+          <button
+            onClick={() => {
+              navigate("/leaderboard");
+            }}
+          >
+            Clasificación
+          </button>
           <hr />
           <button>Cambiar foto</button>
           <hr />
-          <button>Cerrar sesión</button>
+          <button
+            onClick={async () => {
+              await supabase.auth.signOut();
+              navigate("/");
+            }}
+          >
+            Cerrar sesión
+          </button>
         </div>
       </div>
     );

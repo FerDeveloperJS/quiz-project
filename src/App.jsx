@@ -15,6 +15,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/category" element={<Category />} />
         <Route path="/game" element={<Game />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
       </Routes>
     </BrowserRouter>
   );
