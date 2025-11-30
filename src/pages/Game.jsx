@@ -9,6 +9,8 @@ import AnswerBox from "../components/AnswerBox";
 import QuestionTimer from "../components/QuestionTimer.jsx";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+import UserMenu from "../components/UserMenu.jsx";
 
 function Game() {
   const [currentQuestion, setCurrentQuestion] = useState(null);
@@ -67,12 +69,19 @@ function Game() {
   if (gameOver) {
     return (
       <section className="bg-[#7B2CBF] min-h-screen p-5 flex flex-col gap-2.5 items-center justify-center">
+        <UserMenu />
         <h1 className="text-white text-2xl lg:text-4xl font-bold">
           ¡Juego terminado!
         </h1>
         <p className="text-white text-2xl lg:text-4xl font-bold">
           Tu puntuación es de: {score}
         </p>
+        <Link
+          to="/category"
+          className="bg-[#10002B] text-white font-[Onest] p-2 md:p-3 font-bold text-lg md:text-xl rounded-xl"
+        >
+          Jugar de nuevo
+        </Link>
       </section>
     );
   }

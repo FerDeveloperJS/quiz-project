@@ -8,6 +8,13 @@ function UserMenu() {
 
   const navigate = useNavigate();
 
+  function handleFileChange(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    console.log("Archivo elegido:", file);
+  }
+
   if (open) {
     return (
       <div className="p-4 bg-white h-96 absolute top-0 right-0 flex flex-col gap-10">
@@ -33,7 +40,18 @@ function UserMenu() {
             Clasificación
           </button>
           <hr />
-          <button>Cambiar foto</button>
+          <button onClick={() => document.getElementById("fileInput").click()}>
+            Cambiar foto
+          </button>
+
+          <input
+            type="file"
+            id="fileInput"
+            className="hidden"
+            accept="image/*"
+            onChange={handleFileChange}
+          />
+
           <hr />
           <button
             onClick={async () => {
